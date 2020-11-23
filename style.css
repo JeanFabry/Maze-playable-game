@@ -1,0 +1,47 @@
+.body{
+    display : flex;
+    flex-direction: column;
+}
+
+.tile{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wall{
+    background-image : url(./Assets/image.jpg);
+    background-size: cover;
+}
+
+.lineDiv {
+    display: flex;
+}
+
+.path {
+    background-image : url(./Assets/pelouse.jpg);
+    
+}
+
+.start {
+    background-image: url(./Assets/unnamed.jpg);
+    background-size: cover;
+}
+
+.end {
+    background-image: url(./Assets/unnamed.jpg);
+    background-size: cover;
+}
+
+.user{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: blue;
+    text-align: center;
+}
+
+.wrong {
+    background-color: black;
+}
