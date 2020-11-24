@@ -12,13 +12,11 @@ const multiline = `***********.*
 *.........***
 *.******...**
 *....********`;
-
 const lineArr = multiline.split("\n");
 
 for (let i=0; i<= lineArr.length-1; i++){
     const lineDiv = document.createElement('div');
     lineDiv.classList.add('lineDiv');
-    lineDiv.id=i
     const line =lineArr[i];
     for (let j=0; j<=line.length-1;j++)
     { 
@@ -42,27 +40,42 @@ for (let i=0; i<= lineArr.length-1; i++){
         }
     }
     body.appendChild(lineDiv)
+    const nth = document.querySelectorAll(".tile");
+    // if [...nth]
+    console.log('nth:', nth)
 }
 
 let x = 2;
-let y = 1;
+let y = 3;
 
 let user = document.createElement("div");
 user.classList.add('user')
-document.querySelector("#\\31  > div.tile.start").appendChild(user);
+document.querySelector("div .start").appendChild(user);
  
 function youWon() {
-    if (document
-     .querySelector("#\\3" + y + "> div:nth-child(" + x + ")").classList.contains("end")) {
-alert("you won !!!! ")
- } 
+    if (
+      document
+        .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")")
+        .classList.contains("end")
+    ) {
+      alert("you won !!!! ");
+    } 
 }
+
+function appending() {
+  if (y>=2 && y<15){
+  document
+       .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")")
+       .appendChild(user);}
+  else {alert("that's a wall!");}
+}
+
 
 function move(e) {
   if (e.code == "ArrowRight") {
       x++;
       if (document
-     .querySelector("#\\3" + y + "> div:nth-child(" + x + ")").classList.contains("wall")) {
+     .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")").classList.contains("wall")) {
          alert("that's a wall!");
          x--;
      }
@@ -70,7 +83,7 @@ function move(e) {
   } else if (e.code == "ArrowLeft") {
       x--;
       if (document
-     .querySelector("#\\3" + y + "> div:nth-child(" + x + ")").classList.contains("wall")) {
+     .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")").classList.contains("wall")) {
          alert("that's a wall!");
 
          x++;
@@ -78,7 +91,7 @@ function move(e) {
   } else if (e.code == "ArrowUp") {
        y--;
     if (document
-       .querySelector("#\\3" + y + "> div:nth-child(" + x + ")").classList.contains("wall")|| y<0 ) {
+       .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")").classList.contains("wall")|| y<0 ) {
          alert("that's a wall!");
 
          y++;
@@ -87,17 +100,16 @@ function move(e) {
       y++;
       if (
         (document
-          .querySelector("#\\3" + y + "> div:nth-child(" + x + ")")
+          .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")")
           .classList.contains("wall"))){
         alert("that's a wall!");
         y--;
       }
   }
-document
-       .querySelector("#\\3" + y + "> div:nth-child(" + x + ")")
-       .appendChild(user);
+       appending();
 
-document.querySelector("#\\31" + (y-10) + "> div:nth-child("+ x +")");
+// document
+//   .querySelector("#\\31" + (y - 10) + "> div:nth-child(" + x + ")").appendChild(user);;
 
        youWon();
        
