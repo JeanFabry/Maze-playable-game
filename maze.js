@@ -1,7 +1,8 @@
 const body = document.querySelector('body');
 body.classList.add('body')
-
-const multiline = `***********.*
+let level=0
+const multiline = [
+  `***********.*
 *S.....**.*.T
 *****.....*.*
 *****.***.*.*
@@ -11,8 +12,30 @@ const multiline = `***********.*
 *****.*******
 *.........***
 *.******...**
-*....********`;
-const lineArr = multiline.split("\n");
+*....********`
+,`**********************
+*..S.................*
+********************.*
+*....................*
+*.********************
+*...................T*`
+,`********
+****S***
+****.***
+****.***
+****.***
+*......*
+*.****.*
+*..***.*
+*..***.*
+**.*****
+*T.*****
+********`
+];
+
+function leveling () {
+  
+const lineArr = multiline[level].split("\n");
 
 for (let i=0; i<= lineArr.length-1; i++){
     const lineDiv = document.createElement('div');
@@ -39,11 +62,16 @@ for (let i=0; i<= lineArr.length-1; i++){
           characterDiv.innerHTML = "";
         }
     }
-    body.appendChild(lineDiv)
-    const nth = document.querySelectorAll(".tile");
-    // if [...nth]
-    console.log('nth:', nth)
+    body.appendChild(lineDiv)  
 }
+
+// function equalStart (divs) {divs =="div.tile.start"}
+
+// const nth = document.querySelectorAll(".tile");
+//     const arrNth= [...nth];
+//     const position = arrNth.findIndex(equalStart);
+//     console.log('position:', position)
+//     console.log("arrNth:", arrNth);
 
 let x = 2;
 let y = 3;
@@ -59,6 +87,9 @@ function youWon() {
         .classList.contains("end")
     ) {
       alert("you won !!!! ");
+      level++;
+      body.innerHTML='';
+      leveling();
     } 
 }
 
@@ -117,3 +148,6 @@ function move(e) {
 
 body.addEventListener("keydown", move);
 
+}
+
+leveling ();
