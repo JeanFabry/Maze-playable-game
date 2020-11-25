@@ -1,7 +1,12 @@
 const body = document.querySelector('body');
-body.classList.add('body')
-
-const multiline = `***********.*
+const section = document.createElement('section');
+body.appendChild(section);
+body.classList.add('body');
+let level = 0;
+let x;
+let y;
+let line = [];
+let lvl1 = `***********.*
 *S.....**.*.T
 *****.....*.*
 *****.***.*.*
@@ -12,18 +17,66 @@ const multiline = `***********.*
 *.........***
 *.******...**
 *....********`;
-const lineArr = multiline.split("\n");
 
-for (let i=0; i<= lineArr.length-1; i++){
-    const lineDiv = document.createElement('div');
-    lineDiv.classList.add('lineDiv');
-    const line =lineArr[i];
-    for (let j=0; j<=line.length-1;j++)
-    { 
-        const characterDiv=document.createElement('div');
-        const character= line.split("");
-        characterDiv.innerHTML=character[j];
-        characterDiv.classList.add('tile');
+let lvl2 = `**********************
+*..S.................*
+********************.*
+*....................*
+*.********************
+*...................T*`
+
+let lvl3 = `********
+****S***
+****.***
+****.***
+****.***
+*......*
+*.****.*
+*..***.*
+*..***.*
+**.*****
+*T.*****
+********`
+
+let lvl4 = `**********
+****S....*
+*....***.*
+*.**.***.*
+*.**.***.*
+*...*....*
+******.***
+*..***....
+*..***.*.*
+**....**.*
+*T.**....*
+**********`;
+
+const multiline = [
+  lvl1, lvl2, lvl3, lvl4
+];
+
+function leveling() {
+  if (multiline[level] != undefined) {
+    const lineArr = multiline[level].split("\n");
+    const mazeArray = [];
+
+    for (let i = 0; i <= lineArr.length - 1; i++) {
+      const symbol = lineArr[i].split("");
+      mazeArray.push(symbol);
+    }
+    console.log('mazeArray:', mazeArray)
+
+    for (let j = 0; j < mazeArray.length; j++) {
+      const lineDiv = document.createElement("div");
+      lineDiv.classList.add("lineDiv");
+      line[j] = [];
+      for (let i = 0; i < mazeArray[j].length; i++) {
+        const characterDiv = document.createElement("div");
+        characterDiv.innerHTML = mazeArray[j][i];
+        console.log('mazeArray:', mazeArray)
+        line[j][i] = characterDiv;
+
+        characterDiv.classList.add("tile");
         lineDiv.appendChild(characterDiv);
         if (characterDiv.innerHTML == "*") {
           characterDiv.classList.add("wall");
@@ -34,86 +87,104 @@ for (let i=0; i<= lineArr.length-1; i++){
         } else if (characterDiv.innerHTML == "S") {
           characterDiv.classList.add("start");
           characterDiv.innerHTML = "";
+          x = i;
+          y = j;
+          let user = document.createElement("div");
+          user.classList.add("user");
+          characterDiv.appendChild(user);
         } else if (characterDiv.innerHTML == "T") {
           characterDiv.classList.add("end");
           characterDiv.innerHTML = "";
         }
+      }
+      section.appendChild(lineDiv);
     }
-    body.appendChild(lineDiv)
-    const nth = document.querySelectorAll(".tile");
-    // if [...nth]
-    console.log('nth:', nth)
+  } else {
+    body.innerHTML="";
+    body.classList.add('welldone');
+    const youWonDiv = document.createElement("div");
+    youWonDiv.classList.add('youWonDiv')
+    const youWon = document.createElement("h1");
+   youWon.classList.add('youWon');
+   youWon.textContent="You Won !!!"
+    const img=document.createElement("div");
+    img.classList.add("gif");
+    body.appendChild(youWonDiv);
+    youWonDiv.appendChild(youWon);
+    youWonDiv.appendChild(img);
+    }
 }
-
-let x = 2;
-let y = 3;
-
-let user = document.createElement("div");
-user.classList.add('user')
-document.querySelector("div .start").appendChild(user);
- 
-function youWon() {
-    if (
-      document
-        .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")")
-        .classList.contains("end")
-    ) {
-      alert("you won !!!! ");
-    } 
-}
-
-function appending() {
-  if (y>=2 && y<15){
-  document
-       .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")")
-       .appendChild(user);}
-  else {alert("that's a wall!");}
-}
-
 
 function move(e) {
+  const perso = document.querySelector(".user");
+  let dest;
+  console.log("line", line);
   if (e.code == "ArrowRight") {
-      x++;
-      if (document
-     .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")").classList.contains("wall")) {
-         alert("that's a wall!");
-         x--;
-     }
+    x++;
+    dest = line[y][x];
+    if (dest.classList.contains("wall")) {
+      alert("that's a wall!");
+      x--;
+      dest = line[y][x];
+    }
 
   } else if (e.code == "ArrowLeft") {
-      x--;
-      if (document
-     .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")").classList.contains("wall")) {
-         alert("that's a wall!");
-
-         x++;
-     }
+    x--;
+    dest = line[y][x];
+    if (dest.classList.contains("wall")) {
+      alert("that's a wall!");
+      x++;
+      dest = line[y][x];
+    }
   } else if (e.code == "ArrowUp") {
-       y--;
-    if (document
-       .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")").classList.contains("wall")|| y<0 ) {
-         alert("that's a wall!");
-
-         y++;
-     }
-  } else if (e.code == "ArrowDown") {
+    y--;
+    dest = line[y][x];
+    if (dest.classList.contains("wall")) {
+      alert("that's a wall!");
       y++;
-      if (
-        (document
-          .querySelector("div:nth-child(" + y + ")> div:nth-child(" + x + ")")
-          .classList.contains("wall"))){
-        alert("that's a wall!");
-        y--;
-      }
+      dest = line[y][x];
+    }
+  } else if (e.code == "ArrowDown") {
+    y++;
+    dest = line[y][x];
+    console.log("dest", dest);
+    if (
+      dest.classList.contains("wall")) {
+      alert("that's a wall!");
+      y--;
+      dest = line[y][x];
+    }
+
   }
-       appending();
-
-// document
-//   .querySelector("#\\31" + (y - 10) + "> div:nth-child(" + x + ")").appendChild(user);;
-
-       youWon();
-       
+  dest.appendChild(perso);
+  if (dest.classList.contains("end")) {
+    alert("Next Level on its way! ");
+    x = 0;
+    y = 0;
+    dest = line[y][x];
+    section.innerHTML = "";
+    level++;
+    sec=0;
+    leveling();
+  }
 }
+
+
+let timer = document.createElement("div");
+timer.classList.add('timer')
+let seconds = document.createElement("div");
+seconds.classList.add('time');
+let minutes = document.createElement("div");
+seconds.classList.add('time')
+document.body.appendChild(timer);
+timer.appendChild(seconds);
+timer.appendChild(minutes);
+
+let sec = 0;
+const inter = setInterval(function () {
+  seconds.innerHTML = "Time spent to finish the level: " + sec++ + " seconds";
+}, 1000);
 
 body.addEventListener("keydown", move);
 
+leveling();
