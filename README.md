@@ -4,6 +4,8 @@
 - Trainee at :office: *BeCode* 
 - Date : *25/11/2020*
 
+Find the maze [here](https://jeanfabry.github.io/amazeing/)
+
 ## What is it?
 
 A maze game with different level.
