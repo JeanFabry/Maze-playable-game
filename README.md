@@ -31,4 +31,4 @@ Our goal was to generate a maze and after add some listener on different key fro
 
 
 ## Preview
-![Preview](./Assets/preview.png)
+![[Preview](https://github.com/JeanFabry)](./Assets/preview.png)
