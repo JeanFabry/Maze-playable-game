@@ -8,15 +8,7 @@ Find the maze [here](https://jeanfabry.github.io/amazeing/)
 
 ## What is it?
 
-A maze game with different level.
-
-## What did we do ? 
-
-We created a new [repository](https://github.com/JeanFabry/amazeing), with an HTML file (***index.html***), a JS file (***maze.js***), and a CSS stylesheet (***maze.css***).
-
-## What's the purpose of this?
-
-Our goal was to generate a maze and after add some listener on different key from our keyboard.:left_right_arrow: :arrow_up_down:
+Out of random arrays of symbols, I created a maze game with different levels (playable with your keyboard keys) .:left_right_arrow: :arrow_up_down:
 
 ## Language use 
 
